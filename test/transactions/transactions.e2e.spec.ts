@@ -450,6 +450,22 @@ describe('TransactionsController (e2e)', () => {
         });
     });
 
+    it('should return second page of transactions when page=2 is specified', () => {
+      return request(app.getHttpServer())
+        .get('/transactions?page=2&limit=3')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.pagination.page).toBe(2);
+          expect(res.body.pagination.limit).toBe(3);
+          expect(Array.isArray(res.body.data)).toBe(true);
+          // If there are enough transactions, the second page should have data
+          // If not, it should be an empty array but still return 200
+          expect(res.body.data.length).toBeLessThanOrEqual(5);
+          expect(res.body.data.length).toBe(3);
+        });
+    });
+
     it('should support sorting by amount', () => {
       return request(app.getHttpServer())
         .get('/transactions?sort=amount&order=ASC')
@@ -561,6 +577,21 @@ describe('TransactionsController (e2e)', () => {
         .expect((res) => {
           expect(res.body.pagination.page).toBe(1);
           expect(res.body.pagination.limit).toBe(5);
+        });
+    });
+
+    it('should return second page of my transactions when page=2 is specified', () => {
+      return request(app.getHttpServer())
+        .get('/transactions/my?page=2&limit=5')
+        .set('Authorization', `Bearer ${userToken}`)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.pagination.page).toBe(2);
+          expect(res.body.pagination.limit).toBe(5);
+          expect(Array.isArray(res.body.data)).toBe(true);
+          // If there are enough transactions, the second page should have data
+          // If not, it should be an empty array but still return 200
+          expect(res.body.data.length).toBeLessThanOrEqual(5);
         });
     });
 
