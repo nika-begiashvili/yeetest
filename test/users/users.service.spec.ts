@@ -3,7 +3,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { UsersService } from '../../src/users/users.service';
-import { User, UserRole, UserStatus, UserAttribute } from '../../src/users/entities/user.entity';
+import {
+  User,
+  UserRole,
+  UserStatus,
+  UserAttribute,
+} from '../../src/users/entities/user.entity';
 import { CreateUserDto } from '../../src/users/dto/create-user.dto';
 import { UpdateUserDto } from '../../src/users/dto/update-user.dto';
 
@@ -294,4 +299,4 @@ describe('UsersService', () => {
       });
     });
   });
-}); 
+});

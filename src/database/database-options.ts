@@ -4,8 +4,10 @@ import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import databaseConfig from '../config/database.config';
 import appConfig, { Environment } from '../config/app.config';
 
-
-export function getDatabaseOptions(dbConfig: ConfigType<typeof databaseConfig>, config: ConfigType<typeof appConfig>) {
+export function getDatabaseOptions(
+  dbConfig: ConfigType<typeof databaseConfig>,
+  config: ConfigType<typeof appConfig>,
+) {
   return {
     type: dbConfig.type,
     host: dbConfig.host,

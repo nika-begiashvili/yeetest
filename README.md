@@ -5,7 +5,7 @@ A complete NestJS boilerplate application with OpenAPI documentation, TypeORM da
 ## Stack
 
 - **NestJS Framework** - Event though it's a small project I wanted to showcase how good initial design can support scaling to
-    larger project, that's the primary reason I choice nestjs, it has declarative api, provides dependency injection, configuration
+    larger project, that's the primary reason I chose nestjs, it has declarative api, provides dependency injection, configuration
     management, modules and nice integration with other tools
 - **OpenAPI/Swagger** - With Nestjs integration I was able to provide code first approach to openapi docs, all information is 
     declared on controller itself resulting in nice single source of truth

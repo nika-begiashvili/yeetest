@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TransactionsService } from '../../src/transactions/transactions.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DataSource, QueryRunner } from 'typeorm';
-import { Transaction, TransactionType } from '../../src/transactions/entities/transaction.entity';
+import {
+  Transaction,
+  TransactionType,
+} from '../../src/transactions/entities/transaction.entity';
 import { User } from '../../src/users/entities/user.entity';
 import { CreateTransactionDto } from '../../src/transactions/dto/create-transaction.dto';
 import appConfig, { Environment } from '../../src/config/app.config';
@@ -47,7 +50,10 @@ describe('TransactionsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TransactionsService,
-        { provide: getRepositoryToken(Transaction), useValue: transactionsRepository },
+        {
+          provide: getRepositoryToken(Transaction),
+          useValue: transactionsRepository,
+        },
         { provide: DataSource, useValue: dataSource },
         { provide: appConfig.KEY, useValue: config },
       ],
@@ -80,9 +86,17 @@ describe('TransactionsService', () => {
         id: transactionId,
         userId,
       });
-      expect(queryRunner.manager.findOne).toHaveBeenCalledWith(User, { where: { id: userId } });
-      expect(queryRunner.manager.save).toHaveBeenCalledWith(User, expect.objectContaining({ id: userId }));
-      expect(queryRunner.manager.save).toHaveBeenCalledWith(Transaction, transaction);
+      expect(queryRunner.manager.findOne).toHaveBeenCalledWith(User, {
+        where: { id: userId },
+      });
+      expect(queryRunner.manager.save).toHaveBeenCalledWith(
+        User,
+        expect.objectContaining({ id: userId }),
+      );
+      expect(queryRunner.manager.save).toHaveBeenCalledWith(
+        Transaction,
+        transaction,
+      );
       expect(queryRunner.commitTransaction).toHaveBeenCalled();
       expect(result).toEqual(transaction);
     });
@@ -100,9 +114,13 @@ describe('TransactionsService', () => {
       transactionsRepository.create.mockReturnValue(transaction);
       queryRunner.manager.findOne.mockResolvedValue(null);
 
-      await expect(service.create(userId, createTransactionDto)).rejects.toThrow('User not found');
-      
-      expect(queryRunner.manager.findOne).toHaveBeenCalledWith(User, { where: { id: userId } });
+      await expect(
+        service.create(userId, createTransactionDto),
+      ).rejects.toThrow('User not found');
+
+      expect(queryRunner.manager.findOne).toHaveBeenCalledWith(User, {
+        where: { id: userId },
+      });
       expect(queryRunner.rollbackTransaction).toHaveBeenCalled();
       expect(queryRunner.release).toHaveBeenCalled();
     });
@@ -125,7 +143,9 @@ describe('TransactionsService', () => {
       const error = new Error() as any;
       error.code = '23505';
       error.constraint = 'transactions_pkey_id';
-      queryRunner.manager.save.mockImplementationOnce(() => { throw error; });
+      queryRunner.manager.save.mockImplementationOnce(() => {
+        throw error;
+      });
       transactionsRepository.findOne.mockResolvedValue(existingTransaction);
 
       const result = await service.create(userId, createTransactionDto);
@@ -142,4 +162,4 @@ describe('TransactionsService', () => {
       expect(result).toEqual(existingTransaction);
     });
   });
-}); 
+});
