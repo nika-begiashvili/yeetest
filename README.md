@@ -1,4 +1,4 @@
-# NestJS Boilerplate
+# NestJS Project
 
 A complete NestJS boilerplate application with OpenAPI documentation, TypeORM database integration, and comprehensive testing setup using Jest and Supertest.
 
