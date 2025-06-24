@@ -24,6 +24,7 @@ docker-compose -f docker-compose.dev.yml up --build
 ```
 
 This will run postgres and nodejs app also set all necessery env vars as well and automatically synchronize database schema
+It will also mount your local source code and watch for file changes
 
 ### Environment Variables
 
@@ -172,7 +173,7 @@ nest generate service <module-name>
 ### Code Quality
 
 The project includes:
-- ESLint for code linting
+- ESLint for code linting (TODO: linter errors aren't resolved)
 - Prettier for code formatting
 - TypeScript for type safety
 - Class-validator for runtime validation
