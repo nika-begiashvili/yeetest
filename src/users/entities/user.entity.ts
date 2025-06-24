@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
@@ -33,6 +34,9 @@ export enum UserAttribute {
 }
 
 @Entity('users')
+@Index(['username'], { unique: true })
+@Index(['email'], { unique: true })
+@Index(['createdAt'])
 export class User {
   @ApiProperty({
     example: '123e4567-e89b-12d3-a456-426614174000',

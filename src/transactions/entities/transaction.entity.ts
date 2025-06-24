@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
@@ -31,6 +32,8 @@ export enum TransactionAttribute {
 }
 
 @Entity('transactions')
+@Index(['userId'])
+@Index(['createdAt'])
 export class Transaction {
   @ApiProperty({
     example: '123e4567-e89b-12d3-a456-426614174000',
