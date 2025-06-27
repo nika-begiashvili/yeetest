@@ -18,6 +18,8 @@ import {
   ApiParam,
   ApiQuery,
   ApiExtraModels,
+  ApiSecurity,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -35,6 +37,7 @@ class PagedTransactionResult extends PagedResult<Transaction> {}
 
 @ApiTags('transactions')
 @Controller('transactions')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}

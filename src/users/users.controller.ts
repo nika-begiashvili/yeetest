@@ -24,6 +24,7 @@ import {
   ApiBody,
   ApiQuery,
   ApiExtraModels,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -50,6 +51,7 @@ export class UuidValidationPipe implements PipeTransform {
 }
 
 @ApiTags('users')
+@ApiBearerAuth()
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)

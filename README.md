@@ -20,7 +20,7 @@ A complete NestJS boilerplate application with OpenAPI documentation, TypeORM da
 
 ```bash
 # Build and start development services
-docker-compose -f docker-compose.dev.yml up --build
+docker-compose -f infra/docker-compose.dev.yml up --build
 ```
 
 This will run postgres and nodejs app also set all necessery env vars as well and automatically synchronize database schema
